@@ -1,13 +1,34 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { readdirSync } from 'fs';
+import fs from 'fs';
+import cors from 'cors';
+import mongoose from 'mongoose';
+const morgan = require('morgan');
 //Load all environment variables
 require('dotenv').config();
 
 const app = express();
 
+//Connection to Mongo
+mongoose
+  .connect(process.env.DATABASE, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    writeConcern: { j: true },
+  })
+  .then(() => console.log('DB connected ⭐️'))
+  .catch((error) => console.log(`‼️ Error connection to Mongo -> ${error}`));
+
+//Add CORS for communication between different origins
+app.use(cors());
+
+//Add Morgan for logging
+app.use(morgan('dev'));
+
 //Routing trick for bring in everything in routes folder
-readdirSync('./routes').map((route) => {
+fs.readdirSync('./routes').map((route) => {
   app.use('/api', require(`./routes/${route}`));
 });
 

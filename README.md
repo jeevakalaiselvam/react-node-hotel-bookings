@@ -8,4 +8,4 @@ React, Redux
 
 ## Back end
 
-Node, Express, DotEnv, Morgan, Nodemon
+Node, Express, DotEnv, Morgan, Nodemon, CORS, MongoDB, Mongoose
