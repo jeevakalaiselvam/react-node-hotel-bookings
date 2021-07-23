@@ -1,4 +1,5 @@
 import User from '../models/user';
+import brcypt from 'bcrypt';
 
 export const register = async (req, res) => {
   console.log(req.body);
@@ -46,14 +47,19 @@ export const login = async (req, res) => {
     let user = await User.findOne({ email: email });
     if (!user) {
       console.log('USER NOT FOUND');
-      res.status(400).send('User with email not found!');
+      return res.status(400).send('User with email not found!');
     } else {
       console.log('USER FOUND -> ', user);
+      console.log('CHECKING AND GENERATING JSON WEB TOKEN');
+      user.comparePassword(password, (err, match) => {
+        if (!match || err) {
+          console.log('PASSWORDS DO NOT MATCH');
+          return res.status(400).send('Please enter the correct password..');
+        }
+      });
     }
   } catch (err) {
     console.log('ERROR IN LOGIN -> ', err);
-    res
-      .status(400)
-      .send('Sign in failed, Please enter correct email and password!');
+    res.status(400).send('Sign in failed!');
   }
 };

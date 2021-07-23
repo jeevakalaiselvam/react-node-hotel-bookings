@@ -61,7 +61,7 @@ userSchema.pre('save', function (next) {
 //Password comparison method when user login
 //Matching passwords give TRUE
 userSchema.methods.comparePassword = function (password, next) {
-  brcypt.compare(password, this.password, function (error, match) {
+  bcrypt.compare(password, this.password, function (err, match) {
     if (err) {
       console.log('COMPARE PASSWORD ERROR');
       return next(err, false);
