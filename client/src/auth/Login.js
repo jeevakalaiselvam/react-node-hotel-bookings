@@ -17,9 +17,11 @@ const Login = ({ history }) => {
     console.log('LOGIN FORM SUBMITTED');
     try {
       let res = await login({ email, password });
-      console.log('LOGIN RESPONSE', res);
+      console.log('LOGIN RESPONSE OBTAINED', res);
       if (res.data) {
-        console.log('SAVE USER RES IN REDUX AND LOCAL STORAGE AND REDIRECT');
+        console.log(
+          'SAVING USER INFORMATION IN REDUX AND LOCAL STORAGE AND REDIRECTING TO LOGIN PAGE'
+        );
         window.localStorage.setItem('auth', JSON.stringify(res.data));
 
         //Dispatch event to Redux
@@ -27,7 +29,7 @@ const Login = ({ history }) => {
           type: 'LOGGED_IN_USER',
           payload: res.data,
         });
-        history.push('/');
+        history.push('/dashboard');
       }
     } catch (err) {
       console.log(err);

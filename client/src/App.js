@@ -8,6 +8,8 @@ import Home from './booking/Home';
 import Register from './auth/Register';
 import Login from './auth/Login';
 import Dashboard from './user/Dashboard';
+import DashboardSeller from './user/DashboardSeller';
+import NewHotel from './hotels/NewHotel';
 
 toast.configure();
 
@@ -27,6 +29,12 @@ function App() {
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
           <PrivateRoute exact path='/dashboard' component={Dashboard} />
+          <PrivateRoute
+            exact
+            path='/dashboard/seller'
+            component={DashboardSeller}
+          />
+          <PrivateRoute exact path='/hotels/new' component={NewHotel} />
         </Switch>
       </BrowserRouter>
     </div>

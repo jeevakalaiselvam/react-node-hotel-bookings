@@ -7,6 +7,7 @@ const morgan = require('morgan');
 //Load all environment variables
 require('dotenv').config();
 
+console.clear();
 const app = express();
 
 //Connection to Mongo
@@ -18,8 +19,10 @@ mongoose
     useCreateIndex: true,
     writeConcern: { j: true },
   })
-  .then(() => console.log('DB connected ⭐️'))
-  .catch((error) => console.log(`‼️ Error connection to Mongo -> ${error}`));
+  .then(() => console.log('MONGODB ATLAS CONNECTED ⭐️'))
+  .catch((error) =>
+    console.log(`‼️ ERROR CONNECTING TO MONGODB ATLAS -> ${error}`)
+  );
 
 //Add CORS to allow communication between different origins
 app.use(cors());
@@ -36,6 +39,6 @@ fs.readdirSync('./routes').map((route) => {
 });
 
 const port = process.env.PORT || 8000;
-app.listen(8000, () => {
-  console.log(`Listening on port 8000 ✅`);
+app.listen(port, () => {
+  console.log(`LISTENING ON PORT ${port} ✅`);
 });
