@@ -10,6 +10,7 @@ import Login from './auth/Login';
 import Dashboard from './user/Dashboard';
 import DashboardSeller from './user/DashboardSeller';
 import NewHotel from './hotels/NewHotel';
+import StripeCallback from './stripe/StripeCallback';
 
 toast.configure();
 
@@ -35,6 +36,11 @@ function App() {
             component={DashboardSeller}
           />
           <PrivateRoute exact path='/hotels/new' component={NewHotel} />
+          <PrivateRoute
+            exact
+            path='/stripe/callback'
+            component={StripeCallback}
+          />
         </Switch>
       </BrowserRouter>
     </div>

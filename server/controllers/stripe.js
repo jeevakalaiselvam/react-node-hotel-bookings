@@ -1,4 +1,5 @@
 import User from '../models/user';
+import queryString from 'query-string';
 import Stripe from 'stripe';
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
@@ -35,8 +36,14 @@ export const createConnectAccount = async (req, res) => {
   });
 
   console.log('PREFILLING USER INFO IN ONBOARDING FORM');
-  accountLink = Object.assign({
+  accountLink = Object.assign(accountLink, {
     'stripe_user[email]': user.email || undefined,
   });
-  console.log('USER INFO PREFILLED FOR FRONT END', accountLink);
+  console.log('SENDING USER INFO PREFILLED FOR FRONT END ->', accountLink);
+  console.log(
+    `SENDING LOGIN LINK TO FRONT END -> ${
+      accountLink.url
+    }?${queryString.stringify(accountLink)}`
+  );
+  res.send(`${accountLink.url}?${queryString.stringify(accountLink)}`);
 };

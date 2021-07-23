@@ -16,6 +16,9 @@ const DashboardSeller = () => {
     try {
       let res = await createConnectAccount(auth.token);
       console.log(res); //We need to get login link
+      //Get URL for Stripe onboarding sent back from server in response and onboard the user
+      //On successful onboarding, User will be sent back to the URL mentioned in RETURN URL by STRIPE
+      window.location.href = res.data;
     } catch (err) {
       console.log(err);
       toast.error('Stripe connect failed, Try again.');
