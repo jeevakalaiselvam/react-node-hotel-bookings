@@ -21,11 +21,14 @@ mongoose
   .then(() => console.log('DB connected ⭐️'))
   .catch((error) => console.log(`‼️ Error connection to Mongo -> ${error}`));
 
-//Add CORS for communication between different origins
+//Add CORS to allow communication between different origins
 app.use(cors());
 
 //Add Morgan for logging
 app.use(morgan('dev'));
+
+//JSON body parsing, Use Express inbuilt or bodyparser
+app.use(express.json());
 
 //Routing trick for bring in everything in routes folder
 fs.readdirSync('./routes').map((route) => {

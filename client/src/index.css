@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+body {
+  font-family: 'DINPro';
+}
+
+/* https://fkhadra.github.io/react-toastify/how-to-style/ */
+.Toastify__toast--warning {
+  background: #e0b667 !important;
+}
+.Toastify__toast--error {
+  background: #e25053 !important;
+}
+.toastBody {
+  font-family: 'DINPro', Arial, Helvetica, sans-serif;
+  color: #ffffff; /* #10171D */
+  font-size: 0.875rem !important;
+}
+.toastProgress {
+  background: #dfdfdf !important;
+}

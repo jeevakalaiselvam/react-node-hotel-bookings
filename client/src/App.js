@@ -3,12 +3,21 @@ import Register from './auth/Register';
 import Login from './auth/Login';
 import TopNav from './components/TopNav';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        {TopNav()}
+        <TopNav />
+        <ToastContainer
+          position='top-center'
+          progressClassName='toastProgress'
+          bodyClassName='toastBody'
+        />
         <Switch>
           {/* Exact route is important */}
           <Route exact path='/' component={Home} />
