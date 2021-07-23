@@ -4,10 +4,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { login } from '../actions/auth';
 import LoginForm from '../components/LoginForm';
+import { useDispatch } from 'react-redux';
 
-const Login = () => {
+const Login = ({ history }) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,11 +20,18 @@ const Login = () => {
       console.log('LOGIN RESPONSE', res);
       if (res.data) {
         console.log('SAVE USER RES IN REDUX AND LOCAL STORAGE AND REDIRECT');
-        console.log(res.data);
+        window.localStorage.setItem('auth', JSON.stringify(res.data));
+
+        //Dispatch event to Redux
+        dispatch({
+          type: 'LOGGED_IN_USER',
+          payload: res.data,
+        });
+        history.push('/');
       }
     } catch (err) {
       console.log(err);
-      if (err.response.status === 400) toast.error(err.response.data);
+      //if (err.response.status === 400) toast.error(err.response.data);
     }
   };
 

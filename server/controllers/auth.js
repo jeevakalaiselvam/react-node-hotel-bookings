@@ -1,5 +1,6 @@
 import User from '../models/user';
 import brcypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const register = async (req, res) => {
   console.log(req.body);
@@ -38,6 +39,8 @@ export const register = async (req, res) => {
 // Send JWT response to use in front end
 // JWT has expiry and allows users access until expiry time
 // JWT tokens are used for protecting routes by usings roles in db
+// Each time user access a protected router, We send the JWT in header from client and decode it to find user id and check if user has role for the route
+// JWT token sent from client in header to server can be used to decode user id and maintain state of which user has logged in
 
 export const login = async (req, res) => {
   console.log('LOGIN FORM RECEIVED IN EXPRESS', req.body);
@@ -50,12 +53,27 @@ export const login = async (req, res) => {
       return res.status(400).send('User with email not found!');
     } else {
       console.log('USER FOUND -> ', user);
-      console.log('CHECKING AND GENERATING JSON WEB TOKEN');
+      console.log('CHECKING IF PASSWORDS ARE SAME');
       user.comparePassword(password, (err, match) => {
         if (!match || err) {
           console.log('PASSWORDS DO NOT MATCH');
           return res.status(400).send('Please enter the correct password..');
         }
+        console.log('PASSWORD VERIFIED -> GENERATING JSON WEB TOKEN');
+        let token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET, {
+          expiresIn: '7d',
+        });
+        console.log('JSON WEB TOKEN AND USER DATA SENT');
+        res.json({
+          token: token,
+          user: {
+            name: user.name,
+            email: user.email,
+            _id: user._id,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+          },
+        });
       });
     }
   } catch (err) {

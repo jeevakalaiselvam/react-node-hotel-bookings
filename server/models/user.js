@@ -68,7 +68,7 @@ userSchema.methods.comparePassword = function (password, next) {
     }
 
     //if no error, We get null on error
-    console.log('MATCHED PASSWORD', match);
+    console.log('CORRECT PASSWORD', match);
     return next(null, match);
   });
 };

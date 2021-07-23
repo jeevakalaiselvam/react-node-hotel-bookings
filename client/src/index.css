@@ -19,3 +19,7 @@ body {
 .toastProgress {
   background: #dfdfdf !important;
 }
+
+.pointer {
+  cursor: pointer;
+}
