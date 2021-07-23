@@ -58,4 +58,19 @@ userSchema.pre('save', function (next) {
   }
 });
 
+//Password comparison method when user login
+//Matching passwords give TRUE
+userSchema.methods.comparePassword = function (password, next) {
+  brcypt.compare(password, this.password, function (error, match) {
+    if (err) {
+      console.log('COMPARE PASSWORD ERROR');
+      return next(err, false);
+    }
+
+    //if no error, We get null on error
+    console.log('MATCHED PASSWORD', match);
+    return next(null, match);
+  });
+};
+
 export default mongoose.model('User', userSchema);

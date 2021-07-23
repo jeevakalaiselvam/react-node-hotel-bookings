@@ -11,6 +11,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('LOGIN FORM SUBMITTED');
+    try {
+      let res = await login({ email, password });
+      console.log('LOGIN RESPONSE', res);
+      if (res.data) {
+        console.log('SAVE USER RES IN REDUX AND LOCAL STORAGE AND REDIRECT');
+        console.log(res.data);
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.response.status === 400) toast.error(err.response.data);
+    }
   };
 
   return (
