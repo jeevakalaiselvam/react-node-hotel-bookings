@@ -23,11 +23,13 @@ const TopNav = () => {
       <Link className='nav-link' to='/'>
         Home
       </Link>
+
       {auth !== null && (
         <a className='nav-link pointer' onClick={logout}>
           Logout
         </a>
       )}
+
       {auth === null && (
         <>
           <Link className='nav-link' to='/login'>
