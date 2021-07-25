@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { login } from '../actions/auth';
 import LoginForm from '../components/LoginForm';
 import { useDispatch } from 'react-redux';

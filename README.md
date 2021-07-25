@@ -4,7 +4,7 @@ Simple booking application using React Node Express and MongoDB
 
 ## Front end
 
-React, Redux
+React, Redux, Stipe, Algolia
 
 ## Back end
 

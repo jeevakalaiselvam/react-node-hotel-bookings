@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { intersects } from 'semver';
 const { Schema } = mongoose;
 import bcrypt from 'bcrypt';
+import { r, b, g, y } from '../util/log';
 
 const userSchema = new Schema(
   {
@@ -38,12 +39,14 @@ const userSchema = new Schema(
 
 userSchema.pre('save', function (next) {
   let user = this;
+  b('CHECKING USER MODEL INFO BEFORE SAVING');
   //Hash password only if user is changing password or registering for the first time
   //Using pre middle ware is important to hash the password
   //Use Bcrypt library for hashing
 
   //Check if user has modified password (this data comes from timestamps:true defined in schema for user)
   if (user.isModified('password')) {
+    y('USER HAS MODIFIED PASSWORD, CHECKING FOR VALIDITY OF NEW PASSWORD');
     return bcrypt.hash(user.password, 12, function (err, hash) {
       if (err) {
         console.log('BCRYPT ERROR -> ', err);
@@ -63,12 +66,12 @@ userSchema.pre('save', function (next) {
 userSchema.methods.comparePassword = function (password, next) {
   bcrypt.compare(password, this.password, function (err, match) {
     if (err) {
-      console.log('COMPARE PASSWORD ERROR');
+      r('PASSWORD COMPARISON ERROR IN MODEL METHOD USING BRCYPT COMPARE');
       return next(err, false);
     }
 
     //if no error, We get null on error
-    console.log('CORRECT PASSWORD', match);
+    g('PASSWORD COMPARISON SUCCESS IN MODEL METHOD USING BRCYPT COMPARE');
     return next(null, match);
   });
 };

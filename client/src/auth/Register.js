@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import RegisterForm from '../components/RegisterForm';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { register } from '../actions/auth';
 
 toast.configure();
